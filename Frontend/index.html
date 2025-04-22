@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management CRUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Management</h1>
+
+        <div class="form-container">
+            <h2 id="form-title">Add New User</h2>
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+
+                <div class="form-group">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Profile Image:</label>
+                    <input type="file" id="image" accept="image/*">
+                    <div id="image-preview" class="preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="govt-id">Government ID:</label>
+                    <input type="file" id="govt-id" accept=".pdf,.jpg,.jpeg,.png">
+                    <div id="id-preview" class="preview"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn">Submit</button>
+                    <button type="button" id="cancel-btn" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="users-table">
+            <h2>Users List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>image</th>
+                        <th>firstName</th>
+                        <th>lastName</th>
+                        <th>email</th>
+                        <th>phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="users-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
