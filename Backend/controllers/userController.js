@@ -1,4 +1,3 @@
-
 const { PrismaClient } = require('@prisma/client');
 const multer = require('multer');
 const path = require('path');
@@ -8,6 +7,7 @@ const prisma = new PrismaClient();
 
 const imageUploadDir = path.join(__dirname, '..', 'uploads', 'images');
 const idUploadDir = path.join(__dirname, '..', 'uploads', 'ids');
+
 [imageUploadDir, idUploadDir].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
         cb(null, unique);
     }
 });
+
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 exports.upload = upload.fields([
@@ -34,10 +35,9 @@ function fileUrl(req, storedPath) {
     return `${req.protocol}://${req.get('host')}/${rel}`;
 }
 
-
 exports.createUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, phone } = req.body;
+        const { firstName, lastName, email, phone, address } = req.body;
         if (!firstName || !lastName || !email) {
             return res.status(400).json({ error: 'firstName, lastName & email are required' });
         }
@@ -46,7 +46,7 @@ exports.createUser = async (req, res) => {
         const govtIdPath = req.files.govtId?.[0]?.path || null;
 
         const user = await prisma.user.create({
-            data: { firstName, lastName, email, phone, image: imagePath, govtId: govtIdPath }
+            data: { firstName, lastName, email, phone, address, image: imagePath, govtId: govtIdPath }
         });
 
         return res.status(201).json({
@@ -62,7 +62,6 @@ exports.createUser = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
-
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -95,7 +94,6 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-
 exports.updateUser = async (req, res) => {
     const id = Number(req.params.id);
     try {
@@ -103,7 +101,7 @@ exports.updateUser = async (req, res) => {
         if (!exists) return res.status(404).json({ error: 'User not found' });
 
         const data = {};
-        ['firstName', 'lastName', 'email', 'phone'].forEach(f => {
+        ['firstName', 'lastName', 'email', 'phone', 'address'].forEach(f => {
             if (req.body[f]) data[f] = req.body[f];
         });
 

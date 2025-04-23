@@ -44,17 +44,20 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="tel"] {
+input[type="tel"],
+input[type="file"],
+input[type="add"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
+  background-color: white;
 }
 
+/* Ensuring file input looks consistent */
 input[type="file"] {
-  width: 100%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .preview {
@@ -184,4 +187,9 @@ tr:hover {
   td {
     padding: 8px;
   }
+}
+
+.user-image {
+  border-radius: 6px;
+  object-fit: cover;
 }
