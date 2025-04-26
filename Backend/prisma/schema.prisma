@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement())
-  firstName  String
-  lastName   String
-  email      String  @unique
-  phone      String
-  address    String
-  image      String? // profile image path
-  govtId     String? // govt ID image path
-  createdAt  DateTime @default(now())
+    id        Int      @id @default(autoincrement())
+    firstName String
+    lastName  String
+    email     String   @unique
+    phone     String?
+    address   String?
+    image     String?
+    govtId    String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

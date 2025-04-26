@@ -1,18 +1,20 @@
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors());
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Use routes for user management
 app.use('/api', userRoutes);
 
+// Global error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ error: err.message });
